@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/analysis_core}
+    username: ${POSTGRES_USER:analysis}
+    password: ${POSTGRES_PASSWORD:analysis}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.jdbc.time_zone: UTC
+
+oyrank:
+  source:
+    kr:
+      code: OLIVEYOUNG_KR
+      baseUrl: https://www.oliveyoung.co.kr
+      bestListPath: /store/main/getBestList.do?t_page=%ED%99%88&t_click=GNB&t_gnb_type=%EB%9E%AD%ED%82%B9&t_swiping_type=N
+      offset: "+09:00"
+  http:
+    timeoutMillis: 5000
+    retry:
+      maxAttempts: 2
+      backoffMillis: 500
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    display-request-duration: true
